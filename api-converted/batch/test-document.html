@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
+        code { background: #f4f4f4; padding: 2px 4px; border-radius: 3px; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #ddd; margin: 0; padding-left: 20px; }
+    </style>
+</head>
+<body>
+<h1>FileForge - Framework de Conversão</h1>
+<h2>🔥 Visão Geral</h2>
+<p>O <strong>FileForge</strong> é um framework avançado para conversão de arquivos multi-formato, desenvolvido para ser:</p>
+<ul>
+<li><strong>Simples</strong>: API unificada <code>convert(input, output_format, options)</code></li>
+<li><strong>Poderoso</strong>: Suporte a 15+ formatos com conversões inteligentes</li>
+<li><strong>Extensível</strong>: Sistema de plugins para funcionalidades customizadas</li>
+</ul>
+<h2>📦 Instalação</h2>
+<h3>JavaScript/Node.js</h3>
+<pre><code class="language-bash">npm install fileforge
+</code></pre>
+<h3>Python</h3>
+<pre><code class="language-bash">pip install fileforge
+</code></pre>
+<h2>🚀 Uso Rápido</h2>
+<h3>JavaScript</h3>
+<pre><code class="language-javascript">const { FileForge } = require(&#39;fileforge&#39;);
+const forge = new FileForge();
+
+// Conversão simples
+await forge.convert(&#39;documento.pdf&#39;, &#39;txt&#39;);
+
+// Com OCR
+await forge.convert(&#39;imagem.jpg&#39;, &#39;txt&#39;, { ocr: true });
+</code></pre>
+<h3>Python</h3>
+<pre><code class="language-python">from fileforge import FileForge
+forge = FileForge()
+
+# Conversão simples
+await forge.convert(&#39;documento.pdf&#39;, &#39;txt&#39;)
+</code></pre>
+<h2>🎯 Recursos Principais</h2>
+<table>
+<thead>
+<tr>
+<th>Recurso</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Multi-formato</strong></td>
+<td>15+ formatos suportados</td>
+</tr>
+<tr>
+<td><strong>OCR</strong></td>
+<td>Extração de texto de imagens</td>
+</tr>
+<tr>
+<td><strong>Metadados</strong></td>
+<td>EXIF, propriedades de documentos</td>
+</tr>
+<tr>
+<td><strong>Streaming</strong></td>
+<td>Arquivos grandes sem sobrecarregar memória</td>
+</tr>
+<tr>
+<td><strong>Batch</strong></td>
+<td>Conversão em massa</td>
+</tr>
+<tr>
+<td><strong>Plugins</strong></td>
+<td>Sistema extensível</td>
+</tr>
+</tbody></table>
+<h2>🔧 Conversões Suportadas</h2>
+<ul>
+<li><strong>PDF</strong> ↔ TXT, Markdown, HTML, Imagens</li>
+<li><strong>DOCX</strong> ↔ PDF, TXT, HTML, Markdown</li>
+<li><strong>Imagens</strong> ↔ PDF, diferentes formatos</li>
+<li><strong>Dados</strong> ↔ JSON, CSV, XLSX</li>
+</ul>
+<h2>📊 Performance</h2>
+<p>O FileForge foi otimizado para:</p>
+<ul>
+<li>⚡ Processamento rápido</li>
+<li>💾 Uso eficiente de memória</li>
+<li>☁️ Ambientes serverless</li>
+<li>🔄 Processamento paralelo</li>
+</ul>
+<hr>
+<p><em>Desenvolvido com ❤️ por <a href="https://github.com/julioamorimdev">Julio Amorim</a></em></p>
+
+</body>
+</html>

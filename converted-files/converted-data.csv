@@ -1,0 +1,6 @@
+id,nome,tipo,linguagem
+1,FileForge,Framework,JavaScript/Python
+2,Sharp,Biblioteca,JavaScript
+3,PDF-lib,Biblioteca,JavaScript
+4,Tesseract.js,OCR,JavaScript
+5,Pillow,Biblioteca,Python

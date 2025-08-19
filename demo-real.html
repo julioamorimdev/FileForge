@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FileForge Demo - Conversões Reais</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .demo-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .real-files-section {
+            background: #f0f8ff;
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .real-files-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .file-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .file-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .file-icon {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .file-name {
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .file-info {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn.secondary {
+            background: #f8f9fa;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn.secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .conversion-examples {
+            margin-top: 40px;
+        }
+
+        .example-card {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .example-title {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .example-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.9;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .demo-container {
+                padding: 20px;
+            }
+
+            .files-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="emoji">🔥</div>
+            <h1>FileForge Demo Real</h1>
+            <p>Arquivos reais gerados pelas bibliotecas do FileForge</p>
+        </div>
+
+        <div class="demo-container">
+            <div class="success-box">
+                <strong>✅ Arquivos Reais Gerados!</strong><br>
+                Estes arquivos foram criados usando as bibliotecas reais do FileForge (Sharp, PDF-lib, Marked) e são totalmente válidos.
+            </div>
+
+            <div class="real-files-section">
+                <h2>📁 Arquivos de Teste Originais</h2>
+                <div class="files-grid">
+                    <div class="file-card">
+                        <div class="file-icon">🖼️</div>
+                        <div class="file-name">test-image.png</div>
+                        <div class="file-info">Imagem PNG gerada com Sharp<br>800x600 pixels</div>
+                        <div class="file-actions">
+                            <a href="test-files/test-image.png" class="btn" download>📥 Baixar</a>
+                            <button class="btn secondary" onclick="showImagePreview('test-files/test-image.png')">👁️ Ver</button>
+                        </div>
+                    </div>
+
+                    <div class="file-card">
+                        <div class="file-icon">📄</div>
+                        <div class="file-name">test-document.pdf</div>
+                        <div class="file-info">PDF gerado com PDF-lib<br>Documento válido A4</div>
+                        <div class="file-actions">
+                            <a href="test-files/test-document.pdf" class="btn" download>📥 Baixar</a>
+                            <a href="test-files/test-document.pdf" class="btn secondary" target="_blank">👁️ Abrir</a>
+                        </div>
+                    </div>
+
+                    <div class="file-card">
+                        <div class="file-icon">📝</div>
+                        <div class="file-name">test-document.txt</div>
+                        <div class="file-info">Arquivo de texto UTF-8<br>Conteúdo sobre FileForge</div>
+                        <div class="file-actions">
+                            <a href="test-files/test-document.txt" class="btn" download>📥 Baixar</a>
+                            <button class="btn secondary" onclick="showTextPreview('test-files/test-document.txt')">👁️ Ver</button>
+                        </div>
+                    </div>
+
+                    <div class="file-card">
+                        <div class="file-icon">📋</div>
+                        <div class="file-name">test-document.md</div>
+                        <div class="file-info">Markdown com formatação<br>Documentação do FileForge</div>
+                        <div class="file-actions">
+                            <a href="test-files/test-document.md" class="btn" download>📥 Baixar</a>
+                            <button class="btn secondary" onclick="showTextPreview('test-files/test-document.md')">👁️ Ver</button>
+                        </div>
+                    </div>
+
+                    <div class="file-card">
+                        <div class="file-icon">🗂️</div>
+                        <div class="file-name">test-data.json</div>
+                        <div class="file-info">Dados JSON estruturados<br>Array de objetos</div>
+                        <div class="file-actions">
+                            <a href="test-files/test-data.json" class="btn" download>📥 Baixar</a>
+                            <button class="btn secondary" onclick="showJsonPreview('test-files/test-data.json')">👁️ Ver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-files-section">
+                <h2>🔄 Arquivos Convertidos</h2>
+                <div class="files-grid">
+                    <div class="file-card">
+                        <div class="file-icon">📸</div>
+                        <div class="file-name">converted-image.jpg</div>
+                        <div class="file-info">PNG → JPG (Sharp)<br>Qualidade 90%, compressão otimizada</div>
+                        <div class="file-actions">
+                            <a href="converted-files/converted-image.jpg" class="btn" download>📥 Baixar</a>
+                            <button class="btn secondary" onclick="showImagePreview('converted-files/converted-image.jpg')">👁️ Ver</button>
+                        </div>
+                    </div>
+
+                    <div class="file-card">
+                        <div class="file-icon">🖼️</div>
+                        <div class="file-name">resized-image.png</div>
+                        <div class="file-info">Imagem redimensionada<br>800x600 → 400x300</div>
+                        <div class="file-actions">
+                            <a href="converted-files/resized-image.png" class="btn" download>📥 Baixar</a>
+                            <button class="btn secondary" onclick="showImagePreview('converted-files/resized-image.png')">👁️ Ver</button>
+                        </div>
+                    </div>
+
+                    <div class="file-card">
+                        <div class="file-icon">🌐</div>
+                        <div class="file-name">converted-document.html</div>
+                        <div class="file-info">Markdown → HTML (Marked)<br>Com CSS styling</div>
+                        <div class="file-actions">
+                            <a href="converted-files/converted-document.html" class="btn" download>📥 Baixar</a>
+                            <a href="converted-files/converted-document.html" class="btn secondary" target="_blank">👁️ Abrir</a>
+                        </div>
+                    </div>
+
+                    <div class="file-card">
+                        <div class="file-icon">📄</div>
+                        <div class="file-name">converted-text.pdf</div>
+                        <div class="file-info">TXT → PDF (PDF-lib)<br>Formatação automática</div>
+                        <div class="file-actions">
+                            <a href="converted-files/converted-text.pdf" class="btn" download>📥 Baixar</a>
+                            <a href="converted-files/converted-text.pdf" class="btn secondary" target="_blank">👁️ Abrir</a>
+                        </div>
+                    </div>
+
+                    <div class="file-card">
+                        <div class="file-icon">📊</div>
+                        <div class="file-name">converted-data.csv</div>
+                        <div class="file-info">JSON → CSV<br>Dados tabulares</div>
+                        <div class="file-actions">
+                            <a href="converted-files/converted-data.csv" class="btn" download>📥 Baixar</a>
+                            <button class="btn secondary" onclick="showTextPreview('converted-files/converted-data.csv')">👁️ Ver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conversion-examples">
+                <h2>💻 Como Reproduzir Essas Conversões</h2>
+                
+                <div class="example-card">
+                    <div class="example-title">
+                        🖼️ Conversão de Imagem (PNG → JPG)
+                    </div>
+                    <div class="example-description">
+                        Usando Sharp para converter e otimizar imagens
+                    </div>
+                    <div class="code-block">
+const sharp = require('sharp');
+
+await sharp('test-image.png')
+    .jpeg({ quality: 90 })
+    .toFile('converted-image.jpg');
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <div class="example-title">
+                        📄 Geração de PDF (TXT → PDF)
+                    </div>
+                    <div class="example-description">
+                        Usando PDF-lib para criar PDFs válidos com formatação
+                    </div>
+                    <div class="code-block">
+const { PDFDocument, rgb } = require('pdf-lib');
+
+const pdfDoc = await PDFDocument.create();
+const page = pdfDoc.addPage([595, 842]);
+
+page.drawText('Seu texto aqui', {
+    x: 50, y: 750, size: 12, color: rgb(0, 0, 0)
+});
+
+const pdfBytes = await pdfDoc.save();
+fs.writeFileSync('output.pdf', pdfBytes);
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <div class="example-title">
+                        📋 Conversão Markdown (MD → HTML)
+                    </div>
+                    <div class="example-description">
+                        Usando Marked para converter Markdown para HTML com CSS
+                    </div>
+                    <div class="code-block">
+const { marked } = require('marked');
+const fs = require('fs');
+
+const markdown = fs.readFileSync('input.md', 'utf8');
+const html = marked(markdown);
+
+const fullHtml = `&lt;!DOCTYPE html&gt;
+&lt;html&gt;&lt;head&gt;&lt;style&gt;/* CSS aqui */&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;${html}&lt;/body&gt;&lt;/html&gt;`;
+
+fs.writeFileSync('output.html', fullHtml);
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <div class="example-title">
+                        🗂️ Conversão de Dados (JSON → CSV)
+                    </div>
+                    <div class="example-description">
+                        Conversão nativa JavaScript de estruturas de dados
+                    </div>
+                    <div class="code-block">
+const jsonData = require('./data.json');
+
+const headers = Object.keys(jsonData[0]);
+const csvLines = [headers.join(',')];
+
+jsonData.forEach(item => {
+    const values = headers.map(h => item[h]);
+    csvLines.push(values.join(','));
+});
+
+fs.writeFileSync('output.csv', csvLines.join('\n'));
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>💡 Dica:</strong> Execute <code>node test-real-conversion.js</code> no terminal para gerar novos arquivos de teste e ver o processo completo de conversão.
+            </div>
+
+            <div class="success-box">
+                <strong>🎯 Diferença dos Arquivos Corrompidos:</strong><br>
+                Estes arquivos são gerados usando as bibliotecas reais (Sharp, PDF-lib, Marked) em vez de simulações, garantindo que sejam válidos e possam ser abertos em qualquer aplicativo.
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>
+                Desenvolvido com ❤️ por 
+                <a href="https://github.com/julioamorimdev" target="_blank">Julio Amorim</a>
+                | 
+                <a href="https://github.com/julioamorimdev/FileForge" target="_blank">GitHub</a>
+                |
+                <a href="mailto:contato@julioamorim.com.br">Contato</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Modal para preview -->
+    <div id="previewModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; padding: 20px;">
+        <div style="background: white; border-radius: 10px; max-width: 800px; max-height: 90%; margin: 0 auto; padding: 20px; overflow: auto; position: relative;">
+            <button onclick="closePreview()" style="position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer;">×</button>
+            <div id="previewContent"></div>
+        </div>
+    </div>
+
+    <script>
+        function showImagePreview(src) {
+            const modal = document.getElementById('previewModal');
+            const content = document.getElementById('previewContent');
+            
+            content.innerHTML = `
+                <h3>Preview da Imagem</h3>
+                <img src="${src}" style="max-width: 100%; height: auto; border-radius: 8px; margin-top: 15px;" alt="Preview">
+                <p style="margin-top: 15px; color: #666;">Arquivo: ${src.split('/').pop()}</p>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        function showTextPreview(src) {
+            fetch(src)
+                .then(response => response.text())
+                .then(text => {
+                    const modal = document.getElementById('previewModal');
+                    const content = document.getElementById('previewContent');
+                    
+                    content.innerHTML = `
+                        <h3>Preview do Arquivo</h3>
+                        <pre style="background: #f4f4f4; padding: 15px; border-radius: 8px; overflow: auto; max-height: 400px; margin-top: 15px; white-space: pre-wrap;">${text}</pre>
+                        <p style="margin-top: 15px; color: #666;">Arquivo: ${src.split('/').pop()}</p>
+                    `;
+                    
+                    modal.style.display = 'block';
+                })
+                .catch(error => {
+                    alert('Erro ao carregar o arquivo: ' + error.message);
+                });
+        }
+
+        function showJsonPreview(src) {
+            fetch(src)
+                .then(response => response.json())
+                .then(data => {
+                    const modal = document.getElementById('previewModal');
+                    const content = document.getElementById('previewContent');
+                    
+                    content.innerHTML = `
+                        <h3>Preview JSON</h3>
+                        <pre style="background: #f4f4f4; padding: 15px; border-radius: 8px; overflow: auto; max-height: 400px; margin-top: 15px;">${JSON.stringify(data, null, 2)}</pre>
+                        <p style="margin-top: 15px; color: #666;">Arquivo: ${src.split('/').pop()}</p>
+                    `;
+                    
+                    modal.style.display = 'block';
+                })
+                .catch(error => {
+                    alert('Erro ao carregar o JSON: ' + error.message);
+                });
+        }
+
+        function closePreview() {
+            document.getElementById('previewModal').style.display = 'none';
+        }
+
+        // Fechar modal clicando fora
+        document.getElementById('previewModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePreview();
+            }
+        });
+
+        // Fechar modal com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePreview();
+            }
+        });
+
+        console.log('🔥 FileForge Demo Real carregado!');
+        console.log('📁 Arquivos reais disponíveis em test-files/ e converted-files/');
+        console.log('💻 Execute: node test-real-conversion.js para gerar novos arquivos');
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+# Source files
+src/
+tests/
+examples/
+docs/
+
+# Configuration files
+tsconfig.json
+jest.config.js
+.eslintrc.json
+.prettierrc
+
+# Development files
+*.test.ts
+*.spec.ts
+.env
+.env.test
+
+# Build artifacts
+coverage/
+.nyc_output/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Python files (for NPM package)
+python/
+*.py
+__pycache__/
+*.pyc
+
+# Other
+.git/
+.gitignore

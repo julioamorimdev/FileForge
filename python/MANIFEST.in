@@ -1,0 +1,15 @@
+include README.md
+include LICENSE
+include CHANGELOG.md
+include CONTRIBUTING.md
+recursive-include fileforge *.py
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+exclude tests/*
+exclude examples/*
+exclude docs/*
+exclude src/*
+exclude *.js
+exclude *.ts
+exclude package.json
+exclude tsconfig.json
